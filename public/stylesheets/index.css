@@ -28,18 +28,30 @@
   font-size: 0.8rem;
 }
 
+.search-bar-inner .form-control,
+.search-bar-inner .btn-major {
+  height: 38px;
+}
+
 .btn-major {
   background-color: #9b4b4b;
   color: white;
 }
 
 .form-control:focus {
-  box-shadow: none;
+  box-shadow: 0 0 0 0.1rem rgba(155, 75, 75, 0.25);
   border-color: #ced4da;
+  outline: none;
 }
 
 .card {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
 }
 
 .restaurant-category {
