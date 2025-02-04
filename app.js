@@ -17,11 +17,16 @@ app.get("/", (req, res) => {
 //動態路由
 app.get("/restaurants", (req, res) => {
   res.render("index", {restaurants});
-});
+}); 
 
 app.get("/restaurant/:id", (req, res) => {
-  const id = req.params.id;
-  res.send(`Restaurant id : ${id}`);
+  const id = Number(req.params.id);
+  const restaurant = restaurants.find(restaurant => restaurant.id === id)
+  if (!restaurant) {
+    res.status(400).render("400", { message: "無效的餐廳id" })
+  }
+  res.render('detail', { restaurant })
+  
 });
 
 app.listen(port, () => {
