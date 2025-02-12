@@ -16,17 +16,22 @@ app.get("/", (req, res) => {
 
 //動態路由
 app.get("/restaurants", (req, res) => {
-  res.render("index", {restaurants});
-}); 
+  const keyword = req.query.search;
+  const searchedItems = keyword
+    ? restaurants.filter((r) =>
+        r.name.toLowerCase().includes(keyword.toLowerCase())
+      )
+    : restaurants;
+  res.render("index", { restaurants: searchedItems , keyword });
+});
 
 app.get("/restaurant/:id", (req, res) => {
   const id = Number(req.params.id);
-  const restaurant = restaurants.find(restaurant => restaurant.id === id)
+  const restaurant = restaurants.find((restaurant) => restaurant.id === id);
   if (!restaurant) {
-    res.status(400).render("400", { message: "無效的餐廳id" })
+    res.status(400).render("400", { message: "無效的餐廳id" });
   }
-  res.render('detail', { restaurant })
-  
+  res.render("detail", { restaurant });
 });
 
 app.listen(port, () => {
