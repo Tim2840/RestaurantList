@@ -17,12 +17,17 @@ app.get("/", (req, res) => {
 //動態路由
 app.get("/restaurants", (req, res) => {
   const keyword = req.query.search;
-  const searchedItems = keyword
+  const matchedItems = keyword
     ? restaurants.filter((r) =>
-        r.name.toLowerCase().includes(keyword.toLowerCase())
+        Object.values(r).some((property) => {
+          if (typeof property === "string") {
+            return property.toLowerCase().includes(keyword.toLowerCase());
+          }
+          return false;
+        })
       )
     : restaurants;
-  res.render("index", { restaurants: searchedItems , keyword });
+  res.render("index", { restaurants: matchedItems, keyword });
 });
 
 app.get("/restaurant/:id", (req, res) => {
