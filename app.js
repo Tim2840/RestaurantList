@@ -20,8 +20,9 @@ app.get("/restaurants", (req, res) => {
   const matchedItems = keyword
     ? restaurants.filter((r) =>
         Object.values(r).some((property) => {
-          if (typeof property === "string") {
-            return property.toLowerCase().includes(keyword.toLowerCase());
+          const lowercaseKeyword = keyword.toLowerCase()
+          if (typeof property === "string" && !property.includes("http")) {
+            return property.toLowerCase().includes(lowercaseKeyword);
           }
           return false;
         })
